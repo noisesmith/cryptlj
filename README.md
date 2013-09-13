@@ -4,7 +4,9 @@ A clojure library for using java's 128 bit aes.
 
 ## Usage
 
-see the first tests in crypt_test.clj
+the most directly useful functions, cryptlj.disk/to and cryptlj.disk/from, are shown in action in disk_test.clj in the tests directory
+
+see also the first tests in crypt_test.clj
 
 ## License
 
