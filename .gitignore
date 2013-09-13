@@ -1,6 +1,8 @@
 pom.xml
+.lein*
 *jar
 /lib/
 /classes/
-/targets/
-.lein-deps-sum
+/target/
+
+nohup.out
