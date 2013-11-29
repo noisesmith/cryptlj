@@ -5,6 +5,7 @@
 (def ^:dynamic *salt* "BIND SALT IN APP")
 
 (defn cipher- [] (. Cipher getInstance "AES"))
+
 (defn aes-keyspec [rawkey] (new SecretKeySpec rawkey "AES"))
  
 (defn aes-keygen [] (. KeyGenerator getInstance "AES"))
@@ -29,7 +30,7 @@
     (new String (. cipher doFinal ciphertext))))
 
 (defn passkey
-  [password & [iterations size]]
+  [password salt & [iterations size]]
   (let [keymaker (SecretKeyFactory/getInstance "PBKDF2WithHmacSHA1")
         pass (.toCharArray password)
         salt (.getBytes *salt*)
@@ -39,12 +40,12 @@
     (-> keymaker (.generateSecret keyspec) .getEncoded)))
 
 (defn encrypt
-  [password plaintext]
-  (encrypt- (passkey password) plaintext))
+  [password salt plaintext]
+  (encrypt- (passkey password salt) plaintext))
 
 (defn decrypt
-  [password cyphertext]
-  (decrypt- (passkey password) cyphertext))
+  [password salt cyphertext]
+  (decrypt- (passkey password salt) cyphertext))
 
 (defn as-string
   [bytes]

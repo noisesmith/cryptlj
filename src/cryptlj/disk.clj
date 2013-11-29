@@ -4,22 +4,20 @@
   (:import (java.io FileOutputStream FileInputStream ByteArrayOutputStream)))
 
 (defn to
-  [file-name password object]
+  [file-name password salt object]
   (let [out (FileOutputStream. file-name)]
     (->>
      object
      pr-str
-     (crypt/encrypt password)
+     (crypt/encrypt password salt)
      (.write out))
     (.close out)))
 
 (defn from
-  [file-name password]
+  [input-stream password salt]
   (let [data (ByteArrayOutputStream.)]
-    (-> file-name
-         FileInputStream.
-         (io/copy data))
+    (io/copy input-stream data)
     (->> data
          .toByteArray
-         (crypt/decrypt password)
+         (crypt/decrypt password salt)
          read-string)))
