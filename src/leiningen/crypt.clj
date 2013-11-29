@@ -62,7 +62,7 @@
      (str "/.cryptlj-keys")
      slurp
      read-string
-     (#(and (associative? %) (get % keyword project))))
+     (#(and (associative? %) (get % (keyword project)))))
     (catch Throwable t
       (println "error with finding a default password" t)
       "hunter2")))
