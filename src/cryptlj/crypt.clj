@@ -2,8 +2,6 @@
   (:import (javax.crypto KeyGenerator SecretKey Cipher SecretKeyFactory)
            (javax.crypto.spec SecretKeySpec PBEKeySpec)))
 
-(def ^:dynamic *salt* "BIND SALT IN APP")
-
 (defn cipher- [] (. Cipher getInstance "AES"))
 
 (defn aes-keyspec [rawkey] (new SecretKeySpec rawkey "AES"))
@@ -33,7 +31,7 @@
   [password salt & [iterations size]]
   (let [keymaker (SecretKeyFactory/getInstance "PBKDF2WithHmacSHA1")
         pass (.toCharArray password)
-        salt (.getBytes *salt*)
+        salt (.getBytes salt)
         iterations (or iterations 1000)
         size (or size 128)
         keyspec (PBEKeySpec. pass salt iterations size)]

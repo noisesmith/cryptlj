@@ -13,12 +13,12 @@
 
 ;; password encryption needs a salt
 (deftest password-encryption
-  (binding [crypt/*salt* "THE SALT WE ARE USING"]
-    (let [message "Purple Hairy Spiders"
-          password "1234"
-          secret (crypt/encrypt password message)]
-      (is (= (crypt/decrypt password secret)
-             message)))))
+  (let [salt "THE SALT WE ARE USING"
+        message "Purple Hairy Spiders"
+        password "1234"
+        secret (crypt/encrypt password salt message)]
+    (is (= (crypt/decrypt password salt secret)
+           message))))
 
 ;; conversion of encrypted format to/from string
 (deftest conversion

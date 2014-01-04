@@ -11,10 +11,10 @@
       (.delete (io/file f)))))
 
 (deftest serialization
-  (binding [crypt/*salt* "a salt helps keep things more secure"]
-    (let [data (zipmap (range 3000) (reverse (range 3000)))
-          password "it's hard coming up with passwords isn't it?"
-          file "test/cryptlj/test-data.aes128"]
-      (crypt-disk/to file password data)
-      (= data
-         (crypt-disk/from file password)))))
+  (let [salt "a salt helps keep things more secure"
+        data (zipmap (range 3000) (reverse (range 3000)))
+        password "it's hard coming up with passwords isn't it?"
+        file "test/cryptlj/test-data.aes128"]
+    (crypt-disk/to file password salt data)
+    (= data
+       (crypt-disk/from file password salt))))
