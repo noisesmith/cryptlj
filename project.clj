@@ -1,4 +1,4 @@
-(defproject noisesmith/cryptlj "0.3.2"
+(defproject noisesmith/cryptlj "0.3.3"
   :description "clojure bindings for AES encryption / decryption of data"
   :url ""
   :license {:name "Eclipse Public License"
