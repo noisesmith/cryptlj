@@ -14,9 +14,11 @@
     (.close out)))
 
 (defn from
-  [input-stream password salt]
+  [file-name password salt]
   (let [data (ByteArrayOutputStream.)]
-    (io/copy input-stream data)
+    (-> file-name
+         FileInputStream.
+         (io/copy data))
     (->> data
          .toByteArray
          (crypt/decrypt password salt)

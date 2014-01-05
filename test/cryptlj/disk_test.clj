@@ -13,8 +13,12 @@
 (deftest serialization
   (let [salt "a salt helps keep things more secure"
         data (zipmap (range 3000) (reverse (range 3000)))
+        data2 (zipmap (range 666) (reverse (range 666)))
         password "it's hard coming up with passwords isn't it?"
         file "test/cryptlj/test-data.aes128"]
     (crypt-disk/to file password salt data)
-    (= data
-       (crypt-disk/from file password salt))))
+    (is (= data
+           (crypt-disk/from file password salt)))
+    (crypt-disk/to file password salt data2)
+    (is (= data2
+           (crypt-disk/from file password salt)))))
