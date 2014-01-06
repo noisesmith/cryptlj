@@ -18,7 +18,7 @@
         file "test/cryptlj/test-data.aes128"]
     (crypt-disk/to file password salt data)
     (is (= data
-           (crypt-disk/from file password salt)))
+           (crypt-disk/from-disk file password salt)))
     (crypt-disk/to file password salt data2)
     (is (= data2
-           (crypt-disk/from file password salt)))))
+           (crypt-disk/from-disk file password salt)))))
