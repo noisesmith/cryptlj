@@ -25,10 +25,11 @@
 (defn from-disk [file-name password salt]
   (-> file-name
       io/file
+      (doto (-> .exists (assert "file must exist for decryption")))
       (from password salt)))
 
 (defn from-resource [resource-location password salt]
   (-> resource-location
       io/resource
-      (assert "resource must exist for decryption")
+      (doto  (assert "resource must exist for decryption"))
       (from password salt)))
